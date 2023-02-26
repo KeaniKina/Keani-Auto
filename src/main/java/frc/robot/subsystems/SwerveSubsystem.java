@@ -61,6 +61,21 @@ public class SwerveSubsystem extends SubsystemBase {
         return ( /* navx.getYaw() */  navx.getAngle() % 360  /*360-navx.getYaw()*/ );
     }
 
+    public double getAngle(){
+        return navx.getAngle(); 
+    }
+
+    public double getEnc() {
+        return frontLeft.getDrivePosition() * 10; 
+    }
+
+    public void resetEnc(){
+        frontLeft.resetEncoders();
+        backLeft.resetEncoders();
+        backRight.resetEncoders();
+        frontRight.resetEncoders();
+    }
+
     public Rotation2d getRobotRotation(){
         return new Rotation2d(Math.toRadians(navx.getYaw()));
     }
@@ -103,32 +118,32 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public void driveForward(){
-        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(AutoConsts.DRIVE_TRANSLATION_SPEED, 0, 0));
+        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(AutoConsts.driveTranslationSpeed, 0, 0));
         setModuleStates(moduleStates);
     }
 
     public void driveBackward(){
-        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(-AutoConsts.DRIVE_TRANSLATION_SPEED, 0, 0));
+        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(-AutoConsts.driveTranslationSpeed, 0, 0));
         setModuleStates(moduleStates);
     }
 
     public void strafeLeft(){
-        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(0, -AutoConsts.DRIVE_TRANSLATION_SPEED, 0));
+        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(0, -AutoConsts.driveTranslationSpeed, 0));
         setModuleStates(moduleStates);
     }
 
     public void strafeRight(){
-        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(0, AutoConsts.DRIVE_TRANSLATION_SPEED, 0));
+        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(0, AutoConsts.driveTranslationSpeed, 0));
         setModuleStates(moduleStates);
     }
 
     public void rotateLeft(){
-        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(0, 0, -AutoConsts.DRIVE_ROTATION_SPEED));
+        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(0, 0, -AutoConsts.driveRotationSpeed));
         setModuleStates(moduleStates);
     }
 
     public void rotateRight(){
-        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(0, 0, AutoConsts.DRIVE_ROTATION_SPEED));
+        SwerveModuleState[] moduleStates = SwerveConsts.DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(0, 0, AutoConsts.driveRotationSpeed));
         setModuleStates(moduleStates);
     }
 
